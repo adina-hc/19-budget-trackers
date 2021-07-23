@@ -11,7 +11,7 @@ self.addEventListener("install", function (e){
     
     // Pre-cache data
     e.waitUntil(
-        caches.open(DATA_CACHE_NAME).then((cache) => cache.add(" ** add path here ** "))
+        caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/transaction"))
     );
 
     // Pre-cache all static assets
@@ -42,24 +42,27 @@ self.addEventListener("activate", e => {
 
 // Fetch cache
 self.addEventListener("fetch", e => {
-    if (e.request.url.includes(" *enter path here* ")) {
-        e.respondWith(
-            caches.open(DATA_CACHE_NAME).then(cache => {
-                return fetch(e.request)
-                    .then(response => {
-                        // If good response, clone and store it in cache
-                        if (response.status === 200) {
-                            cache.put(e.request.url, response.clone());
-                        }
-                        return response;
-                    })
-                    .catch(err => {
-                        // Failed request - retrieve from cache
-                        return cache.match(e.request);
-                    });
-            }).catch(err => console.log(err))
-        );
-        return;
+    if (e.request.url.includes("/api/transaction")) {
+      e.respondWith(
+        caches
+          .open(DATA_CACHE_NAME)
+          .then((cache) => {
+            return fetch(e.request)
+              .then((response) => {
+                // If good response, clone and store it in cache
+                if (response.status === 200) {
+                  cache.put(e.request.url, response.clone());
+                }
+                return response;
+              })
+              .catch((err) => {
+                // Failed request - retrieve from cache
+                return cache.match(e.request);
+              });
+          })
+          .catch((err) => console.log(err))
+      );
+      return;
     }
     e.respondWith(
         caches.open(CACHE_NAME).then(cache => {
