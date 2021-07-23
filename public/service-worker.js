@@ -1,8 +1,16 @@
 // Define Cache
 const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
-const FILES_TO_STORE = [
 
+// Variable to store what will be in the cache
+const FILES_TO_STORE = [
+    "/index.html",
+    "/index.js",
+    "/styles.css",
+    "/db.js",
+    "/manifest.json",
+    "/icons/icon-192x192.png",
+    "/icons/icon-512x512.png"
 ];
 
 
@@ -66,7 +74,7 @@ self.addEventListener("fetch", e => {
     }
     e.respondWith(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.match(e.request).then(resonse => {
+            return cache.match(e.request).then(response => {
                 return response || fetch(e.request);
             });
         })
