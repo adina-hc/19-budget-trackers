@@ -41,8 +41,18 @@
     <canvas id="myChart"></canvas>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <!-- <script src="index.js"></script> -->
-  <script src="dist/bundle.js"></script>
 </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="db.js"></script>
+  <script src="index.js"></script>
+
+<script type="text/javascript">
+  (function() {
+    if("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/service-worker.js")
+        .then(res => console.log("service worker registered", res))
+    }
+  })();
+</script>
 </html>
