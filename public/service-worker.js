@@ -18,9 +18,9 @@ const FILES_TO_STORE = [
 self.addEventListener("install", function (e){
     
     // Pre-cache data
-    e.waitUntil(
-        caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/transaction"))
-    );
+    //e.waitUntil(
+    //    caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/transaction"))
+    //);
 
     // Pre-cache all static assets
     e.waitUntil(
@@ -32,7 +32,7 @@ self.addEventListener("install", function (e){
 });
 
 // Activate
-self.addEventListener("activate", e => {
+/*self.addEventListener("activate", e => {
     e.waitUntil(
         caches.keys().then(keyList => {
             return Promise.all(
@@ -46,11 +46,11 @@ self.addEventListener("activate", e => {
         })
     );
     self.clients.claim();
-});
+});*/
 
 // Fetch cache
 self.addEventListener("fetch", e => {
-    if (e.request.url.includes("/api/transaction")) {
+    if (e.request.url.includes("/api/")) {
       e.respondWith(
         caches
           .open(DATA_CACHE_NAME)
