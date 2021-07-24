@@ -1,13 +1,17 @@
+// Declare database
 let db;
 
+// Open database
 const reqName = indexedDB.open("budgetTracker", 1)
 
+// Change the database version when upgraded
 reqName.onupgradeneeded = (event) => {
     db = event.target.result
     
     db.createObjectStore("pending", { autoIncrement : true })
 }
 
+// When opening and the page is online, scrub database
 reqName.onsuccess = (event) => {
     db = event.target.result;
     if(navigator.onLine){
@@ -15,6 +19,7 @@ reqName.onsuccess = (event) => {
     }
 }
 
+// Save records into the database on 'pending', having access to read and write
 function saveRecord(data) {
     const trans = db.transaction(["pending"], "readwrite");
     const store = trans.objectStore("pending")
@@ -22,6 +27,7 @@ function saveRecord(data) {
     store.add(data)
 }
 
+// Access the data to obtain all the records to post
 function scrubDatabase() {
     console.log("hi")
 
@@ -31,6 +37,7 @@ function scrubDatabase() {
 
     getAll.onsuccess = function(){
         console.log(getAll)
+        // if there is data, fetch and post
         if(getAll.result.length > 0){
             fetch("/api/transaction/bulk", {
                 method: "POST",
@@ -50,4 +57,5 @@ function scrubDatabase() {
     }
 }
 
+// Online event, fired when the browser accesses the network and navigator is online
 window.addEventListener("online", scrubDatabase)
