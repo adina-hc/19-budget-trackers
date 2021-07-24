@@ -19,7 +19,7 @@ self.addEventListener("install", function (e){
     
     // Pre-cache data
     //e.waitUntil(
-    //    caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/transaction"))
+    //    caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/"))
     //);
 
     // Pre-cache all static assets
