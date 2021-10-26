@@ -44,4 +44,4 @@ css
 [Heroku App](https://damp-headland-38875.herokuapp.com/)
 
 ### Git Repo
-[GitHub Repo](https://github.com/adina-hc/19-budget-trackers)
+[GitHub Repo](https://github.com/adina-hc/budget-trackers)
