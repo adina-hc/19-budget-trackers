@@ -1,4 +1,4 @@
-# 19-budget-tracker
+# Budget tracker
 
 ## Description
 The user as a traveler, can track withdrawals and deposits with or without a data/internet connection, so that the account balance is accurate while traveling.
